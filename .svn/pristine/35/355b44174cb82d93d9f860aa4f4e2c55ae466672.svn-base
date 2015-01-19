@@ -1,0 +1,13 @@
+##database connection configure###
+driverClass=com.mysql.jdbc.Driver
+url=jdbc:mysql://192.168.10.111:4108/routedb
+username=cmbh
+password=cmbh123456
+
+
+#k-v mapper sql#
+datasourceInfo_sql=SELECT ds.dbid	,ds.host	,ds.port	,ds.dbname	,ds.user	,ds.password,ds.poolsize,ds.flag	,ds.driverclassname	,ds.url	,ds.initialSize	,ds.minIdle	,ds.maxActive,	ds.maxWait	,ds.timeBetweenEvictionRunsMillis,ds.minEvictableIdleTimeMillis	,ds.validationQuery	,ds.testWhileIdle	,ds.testOnBorrow	,ds.testOnReturn	,ds.removeAbandoned,	ds.removeAbandonedTimeout	,ds.logAbandoned	,ds.poolPreparedStatements	,ds.filters	,ds.connectionProperties,	rf.rule_value from datasource_info  ds,route_info rf WHERE ds.dbid=rf.dbid and rf.flag=1 and ds.flag=1
+
+
+##set default dbid
+#default_dbid=01

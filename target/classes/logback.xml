@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration>
+	<jmxConfigurator />
+	<substitutionProperty name="log.base" value="/data/logs" />
+	<substitutionProperty name="log.statistic" value="/data/routerlogs" />
+
+<!--     <substitutionProperty name="log.base" value="C:/data/logs" /> -->
+<!-- 	<substitutionProperty name="log.statistic" value="C:/data/routerlogs" /> -->
+	<!-- 控制台输出日志 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss:SSS}:[%c:%L] %-5level %msg%n</pattern>
+		</layout>
+	</appender>
+	
+	<!-- 文件输出日志 (文件小时大小策略进行文件输出，超过指定大小对文件备份) -->
+	<appender name="FILE-INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<!-- <level>INFO</level> -->
+			<OnMismatch>DENY</OnMismatch>
+			<OnMatch>ACCEPT</OnMatch>
+		</filter>
+	
+		<!-- <Encoding>UTF-8</Encoding> -->
+		<File>${log.base}/SystemOut</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}/%d{yyyy-MM-dd}/SystemOut-%d{yyyy-MM-dd-HH}-%i.log
+			</FileNamePattern>
+			<!-- <MaxHistory>8760</MaxHistory> --><!-- 8760小时=1年 -->
+			<TimeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>100MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss:SSS}:[%c:%L] %-5level %msg%n</pattern>
+		</layout>
+	</appender>
+	
+	
+	<logger name="cn.leadeon">
+		<level value="INFO" />
+	</logger>
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-INFO" />
+	</root>
+	
+</configuration>
